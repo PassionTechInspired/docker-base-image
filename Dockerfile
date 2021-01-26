@@ -3,7 +3,7 @@ FROM docker
 ARG BUILDX_VERSION=0.5.1
 ARG EARTHLY_VERSION=0.4.3
 
-RUN apk --no-cache add wget ruby-dev curl jq python3 py3-pip
+RUN apk --no-cache add wget ruby-dev curl jq python3 py3-pip git
 
 # Install Dpl
 RUN gem install dpl
@@ -21,4 +21,3 @@ RUN wget -O docker-buildx https://github.com/docker/buildx/releases/download/v${
 RUN wget https://github.com/earthly/earthly/releases/download/v${EARTHLY_VERSION}/earthly-linux-amd64 -O /usr/local/bin/earthly && \
     chmod +x /usr/local/bin/earthly
     
-
