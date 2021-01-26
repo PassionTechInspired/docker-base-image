@@ -17,6 +17,8 @@ env:
   # TODO: Change variable to your image's name.
   IMAGE_NAME: docker
   REPOSITORY: ghcr.io
+  DOCKER_FILE: Dockerfile
+  ORGANIZATION: passiontech
 
 jobs:
   # Run tests.
@@ -49,14 +51,14 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Build image
-        run: docker build . --file Dockerfile --tag $IMAGE_NAME
+        run: docker build . --file $DOCKER_FILE --tag $IMAGE_NAME
         
       - name: Log into ghcr.io
         run: echo ${{ secrets.CR_PAT }} | docker login $REPOSITORY -u ${{ github.actor }} --password-stdin
         
       - name: Push image
         run: |
-          IMAGE_ID=$REPOSITORY/$IMAGE_NAME
+          IMAGE_ID=$REPOSITORY/$ORGANIZATION/$IMAGE_NAME
 
           # Change all uppercase to lowercase
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
