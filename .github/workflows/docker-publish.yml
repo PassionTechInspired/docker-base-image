@@ -50,16 +50,13 @@ jobs:
 
       - name: Build image
         run: docker build . --file Dockerfile --tag $IMAGE_NAME
-
-#       - name: Log into registry
-#         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
         
       - name: Log into ghcr.io
         run: echo ${{ secrets.CR_PAT }} | docker login $REPOSITORY -u ${{ github.actor }} --password-stdin
         
       - name: Push image
         run: |
-          IMAGE_ID=$REPOSITORY/${{ github.repository }}/$IMAGE_NAME
+          IMAGE_ID=$REPOSITORY/$IMAGE_NAME
 
           # Change all uppercase to lowercase
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
